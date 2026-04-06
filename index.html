@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | 原 裕太</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ナビゲーション -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <span class="nav-logo">原 裕太</span>
+      <ul class="nav-links">
+        <li><a href="#hero">ホーム</a></li>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#skills">スキル</a></li>
+        <li><a href="#works">制作物</a></li>
+        <li><a href="#contact">連絡先</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ヒーローセクション -->
+  <section id="hero">
+    <div class="hero-content">
+      <p class="hero-greeting">はじめまして、私は</p>
+      <h1 class="hero-name">原 裕太</h1>
+      <p class="hero-title"><span id="typed-text"></span><span class="cursor">|</span></p>
+      <div class="hero-buttons">
+        <a href="#works" class="btn btn-primary">制作物を見る</a>
+        <a href="#contact" class="btn btn-outline">連絡する</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>スクロール</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- About Me セクション -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title fade-in">About Me</h2>
+      <div class="about-grid">
+        <div class="about-avatar fade-in">
+          <div class="avatar-circle">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="38" r="22" fill="#a78bfa"/>
+              <ellipse cx="50" cy="85" rx="32" ry="20" fill="#a78bfa"/>
+            </svg>
+          </div>
+        </div>
+        <div class="about-text fade-in">
+          <p>現在は運送業に従事しながら、Webデザインを中心に、WebライティングやAIを活用したアプリ開発の学習に取り組んでいます。</p>
+          <p>日々スキルを磨きながら、実務レベルでの品質向上を目指して活動しています。</p>
+          <div class="about-meta">
+            <div class="meta-item">
+              <span class="meta-label">本業</span>
+              <span class="meta-value">運送業</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">学習中</span>
+              <span class="meta-value">Webデザイン / ライティング / AI開発</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">目標</span>
+              <span class="meta-value">実務レベルの品質向上</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- スキルセクション -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title fade-in">Skills &amp; Learning</h2>
+
+      <!-- 実績・経験 -->
+      <div class="skills-block fade-in">
+        <h3 class="skills-block-title">&#9632; 実績・経験</h3>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon">&#60;/&#62;</div>
+            <h4>Webデザイン</h4>
+            <p class="skill-desc">HTML / CSS / JavaScriptを用いた架空サイト・自己紹介サイトを自主制作</p>
+            <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+            <span class="skill-percent">学習中</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">&#129302;</div>
+            <h4>AIツール活用</h4>
+            <p class="skill-desc">ChatGPT・Gemini・Claude・画像生成AIを活用した記事制作・アプリ開発</p>
+            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+            <span class="skill-percent">実績あり</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">&#128221;</div>
+            <h4>Webライティング</h4>
+            <p class="skill-desc">SEOライティング学習中（検索意図を意識した構成作成を実践）</p>
+            <div class="skill-bar"><div class="skill-fill" data-width="55"></div></div>
+            <span class="skill-percent">学習中</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">&#128196;</div>
+            <h4>Google Workspace</h4>
+            <p class="skill-desc">Googleドキュメント・スプレッドシートでの原稿作成に対応可能</p>
+            <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+            <span class="skill-percent">対応可能</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 強み -->
+      <div class="strengths-block fade-in">
+        <h3 class="skills-block-title">&#9632; 強み</h3>
+        <div class="strengths-grid">
+          <div class="strength-card">
+            <div class="strength-icon">&#9200;</div>
+            <h4>責任感と納期厳守</h4>
+            <p>本業で培った責任感と、納期を守る姿勢をWeb制作にも活かしています。</p>
+          </div>
+          <div class="strength-card">
+            <div class="strength-icon">&#128221;</div>
+            <h4>具体性・信頼性の高い記事作成</h4>
+            <p>現場経験を活かした、読み手に伝わる具体的で信頼性の高いコンテンツ制作が得意です。</p>
+          </div>
+          <div class="strength-card">
+            <div class="strength-icon">&#128200;</div>
+            <h4>コツコツ継続できる</h4>
+            <p>継続することが得意で、日々の学習を積み重ねながら安定した成果を出します。</p>
+          </div>
+          <div class="strength-card">
+            <div class="strength-icon">&#128172;</div>
+            <h4>丁寧なコミュニケーション</h4>
+            <p>丁寧な対応と迅速な修正対応で、クライアントとの信頼関係を大切にします。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 使用ツール -->
+      <div class="tools-block fade-in">
+        <h3 class="skills-block-title">&#9632; 対応可能業務・使用ツール</h3>
+        <div class="tools-list">
+          <span class="tool-badge">ChatGPT</span>
+          <span class="tool-badge">Gemini</span>
+          <span class="tool-badge">Claude Code Pro</span>
+          <span class="tool-badge">画像生成AI</span>
+          <span class="tool-badge">Canva Pro</span>
+          <span class="tool-badge">Figma</span>
+          <span class="tool-badge">GitHub</span>
+          <span class="tool-badge">Googleドキュメント</span>
+          <span class="tool-badge">Googleスプレッドシート</span>
+          <span class="tool-badge">HTML / CSS</span>
+          <span class="tool-badge">JavaScript</span>
+          <span class="tool-badge">SEOライティング</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 制作物セクション -->
+  <section id="works">
+    <div class="container">
+      <h2 class="section-title fade-in">制作物</h2>
+      <div class="works-grid">
+        <div class="work-card fade-in">
+          <div class="work-thumb" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <span class="work-thumb-icon">&#9749;</span>
+          </div>
+          <div class="work-info">
+            <h3>コーヒーショップサイト</h3>
+            <p>架空のカフェを想定し、HTML / CSS / JavaScript で自主制作したWebサイトです。</p>
+            <div class="work-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-thumb" style="background: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);">
+            <span class="work-thumb-icon">&#128100;</span>
+          </div>
+          <div class="work-info">
+            <h3>AI活用 自己紹介サイト</h3>
+            <p>AIツール（Claude Code）を活用して制作した自己紹介ポートフォリオサイトです。</p>
+            <div class="work-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">AI活用</span>
+            </div>
+          </div>
+        </div>
+        <div class="work-card fade-in">
+          <div class="work-thumb" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <span class="work-thumb-icon">&#128203;</span>
+          </div>
+          <div class="work-info">
+            <h3>AIライティング記事制作</h3>
+            <p>ChatGPT・GeminiなどのAIツールを活用した記事作成。SEOを意識した構成で制作。</p>
+            <div class="work-tags">
+              <span class="tag">ChatGPT</span>
+              <span class="tag">Gemini</span>
+              <span class="tag">SEOライティング</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 連絡先セクション -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title fade-in">連絡先</h2>
+      <div class="contact-wrapper fade-in">
+        <p class="contact-lead">お仕事のご依頼・ご相談はお気軽にご連絡ください。</p>
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label for="name">お名前</label>
+            <input type="text" id="name" placeholder="山田 太郎" required>
+          </div>
+          <div class="form-group">
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" placeholder="example@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">メッセージ</label>
+            <textarea id="message" rows="5" placeholder="メッセージを入力してください" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">送信する</button>
+          <p class="form-notice" id="form-notice"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; 2026 原 裕太. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
