@@ -325,17 +325,16 @@ section {
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(167,139,250,0.2), rgba(129,140,248,0.2));
   border: 3px solid var(--accent);
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  box-shadow: 0 0 24px rgba(167,139,250,0.3);
 }
 
-.avatar-circle svg {
+.avatar-circle img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .about-text p {
