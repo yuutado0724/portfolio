@@ -88,6 +88,26 @@ const skillObserver = new IntersectionObserver((entries) => {
 const skillsGrid = document.querySelector('.skills-grid');
 if (skillsGrid) skillObserver.observe(skillsGrid);
 
+// ===== 画像スライダー =====
+document.querySelectorAll('.work-slider-wrap').forEach(wrap => {
+  const slider = wrap.querySelector('.work-slider');
+  const imgs = slider.querySelectorAll('.slider-img');
+  const dots = wrap.querySelectorAll('.dot');
+  const prev = wrap.querySelector('.slider-prev');
+  const next = wrap.querySelector('.slider-next');
+  let current = 0;
+
+  function goTo(n) {
+    current = (n + imgs.length) % imgs.length;
+    slider.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  prev.addEventListener('click', () => goTo(current - 1));
+  next.addEventListener('click', () => goTo(current + 1));
+  dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+});
+
 // ===== コンタクトフォーム =====
 const form = document.getElementById('contact-form');
 const notice = document.getElementById('form-notice');
