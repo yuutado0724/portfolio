@@ -88,73 +88,65 @@ const skillObserver = new IntersectionObserver((entries) => {
 const skillsGrid = document.querySelector('.skills-grid');
 if (skillsGrid) skillObserver.observe(skillsGrid);
 
-// ===== 画像スライダー =====
-document.querySelectorAll('.work-slider-wrap').forEach(wrap => {
-  const slider = wrap.querySelector('.work-slider');
-  const imgs = slider.querySelectorAll('.slider-img');
-  const dots = wrap.querySelectorAll('.dot');
-  const prev = wrap.querySelector('.slider-prev');
-  const next = wrap.querySelector('.slider-next');
-  let current = 0;
+// ===== 画像スライダー & ライトボックス =====
+const lightbox  = document.getElementById('lightbox');
+const lbImg     = document.getElementById('lightbox-img');
+const lbCounter = document.getElementById('lightbox-counter');
+let lbSrcs = [];
+let lbIdx  = 0;
 
-  function goTo(n) {
-    current = (n + imgs.length) % imgs.length;
-    slider.style.transform = `translateX(-${current * 100}%)`;
-    dots.forEach((d, i) => d.classList.toggle('active', i === current));
-  }
+function lbShow(idx) {
+  lbIdx = (idx + lbSrcs.length) % lbSrcs.length;
+  lbImg.src = lbSrcs[lbIdx];
+  lbCounter.textContent = (lbIdx + 1) + ' / ' + lbSrcs.length;
+}
 
-  prev.addEventListener('click', () => goTo(current - 1));
-  next.addEventListener('click', () => goTo(current + 1));
-  dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
-});
-
-// ===== ライトボックス =====
-const lightbox     = document.getElementById('lightbox');
-const lbImg        = document.getElementById('lightbox-img');
-const lbCounter    = document.getElementById('lightbox-counter');
-const lbClose      = document.getElementById('lightbox-close');
-const lbPrev       = document.getElementById('lightbox-prev');
-const lbNext       = document.getElementById('lightbox-next');
-
-let lbImages = [];
-let lbIndex  = 0;
-
-function lbOpen(imgs, idx) {
-  lbImages = imgs;
+function lbOpen(srcs, idx) {
+  lbSrcs = srcs;
   lbShow(idx);
   lightbox.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function lbClose_() {
+function lbClose() {
   lightbox.classList.remove('open');
   document.body.style.overflow = '';
 }
 
-function lbShow(idx) {
-  lbIndex = (idx + lbImages.length) % lbImages.length;
-  lbImg.src = lbImages[lbIndex].src;
-  lbImg.alt = lbImages[lbIndex].alt;
-  lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
-}
-
-lbClose.addEventListener('click', lbClose_);
-lbPrev.addEventListener('click', () => lbShow(lbIndex - 1));
-lbNext.addEventListener('click', () => lbShow(lbIndex + 1));
-lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lbClose_(); });
-document.addEventListener('keydown', (e) => {
+document.getElementById('lightbox-close').addEventListener('click', lbClose);
+document.getElementById('lightbox-prev').addEventListener('click', () => lbShow(lbIdx - 1));
+document.getElementById('lightbox-next').addEventListener('click', () => lbShow(lbIdx + 1));
+lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lbClose(); });
+document.addEventListener('keydown', function(e) {
   if (!lightbox.classList.contains('open')) return;
-  if (e.key === 'Escape') lbClose_();
-  if (e.key === 'ArrowLeft')  lbShow(lbIndex - 1);
-  if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+  if (e.key === 'Escape')      lbClose();
+  if (e.key === 'ArrowLeft')   lbShow(lbIdx - 1);
+  if (e.key === 'ArrowRight')  lbShow(lbIdx + 1);
 });
 
-// スライダー画像にライトボックスを連携
-document.querySelectorAll('.work-slider-wrap').forEach(wrap => {
-  const imgs = Array.from(wrap.querySelectorAll('.slider-img'));
-  imgs.forEach((img, i) => {
+document.querySelectorAll('.work-slider-wrap').forEach(function(wrap) {
+  const slider  = wrap.querySelector('.work-slider');
+  const imgEls  = Array.from(wrap.querySelectorAll('.slider-img'));
+  const dots    = Array.from(wrap.querySelectorAll('.dot'));
+  const btnPrev = wrap.querySelector('.slider-prev');
+  const btnNext = wrap.querySelector('.slider-next');
+  let current   = 0;
+
+  function goTo(n) {
+    current = (n + imgEls.length) % imgEls.length;
+    slider.style.transform = 'translateX(-' + (current * 100) + '%)';
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+  }
+
+  btnPrev.addEventListener('click', function() { goTo(current - 1); });
+  btnNext.addEventListener('click', function() { goTo(current + 1); });
+  dots.forEach(function(d, i) { d.addEventListener('click', function() { goTo(i); }); });
+
+  // 各画像クリックでライトボックスを開く
+  var srcs = imgEls.map(function(el) { return el.getAttribute('src'); });
+  imgEls.forEach(function(img, i) {
     img.style.cursor = 'zoom-in';
-    img.addEventListener('click', () => lbOpen(imgs, i));
+    img.addEventListener('click', function() { lbOpen(srcs, i); });
   });
 });
 
