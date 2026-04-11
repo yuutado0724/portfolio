@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BARISTA | Freshly Roasted Coffee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f1ea;
+      --surface: #ffffff;
+      --surface2: #fbf7ef;
+      --white: #ffffff;
+      --accent: #7b5a3a;
+      --accent2: #c19a6b;
+      --text: #2b2418;
+      --muted: #7a6d5e;
+      --border: #e7dfd4;
+      --shadow: rgba(39, 30, 17, 0.12);
+      --shadow-strong: rgba(39, 30, 17, 0.15);
+      --surface-soft: rgba(255,255,255,.15);
+      --surface-soft-strong: rgba(255,255,255,.18);
+      --surface-soft-border: rgba(255,255,255,.28);
+      --button-border: rgba(255,255,255,.3);
+      --overlay-light: rgba(15,9,4,.18);
+      --overlay-strong: rgba(15,9,4,.75);
+      --gradient-soft-1: rgba(193,154,107,.18);
+      --gradient-soft-2: rgba(123,90,58,.16);
+      --text-bright: rgba(255,255,255,.92);
+      --text-bright-soft: rgba(255,255,255,.95);
+      --text-bright-alt: rgba(255,255,255,.9);
+      --text-bright-muted: rgba(255,255,255,.85);
+      --text-bright-lighter: rgba(255,255,255,.7);
+      --text-bright-mid: rgba(255,255,255,.8);
+      --shadow-rich: rgba(39, 30, 17, .15);
+      --card-hover-border: rgba(123,90,58,.35);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top left, var(--gradient-soft-1), transparent 24%),
+                  radial-gradient(circle at bottom right, var(--gradient-soft-2), transparent 18%);
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 20px 0;
+    }
+
+    .brand {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    nav {
+      display: none;
+    }
+
+    .nav-list {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .nav-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--surface);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .2s, opacity .2s;
+    }
+
+    .nav-action:hover {
+      transform: translateY(-1px);
+      opacity: .95;
+    }
+
+    .hero {
+      display: grid;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .hero-banner {
+      position: relative;
+      min-height: 520px;
+      border-radius: 28px;
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 30px 80px var(--shadow-rich);
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--overlay-light), var(--overlay-strong));
+    }
+
+    .hero-copy {
+      position: absolute;
+      inset: auto auto 32px 32px;
+      max-width: 520px;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .hero-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-soft);
+      border: 1px solid var(--surface-soft-border);
+      border-radius: 999px;
+      padding: 10px 16px;
+      color: var(--text-bright-alt);
+      font-size: 0.78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-title {
+      font-size: clamp(3.1rem, 6vw, 4.6rem);
+      line-height: 1.02;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -.03em;
+      max-width: 540px;
+    }
+
+    .hero-text {
+      color: var(--text-bright);
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .2s, opacity .2s, background .2s;
+    }
+
+    .button-primary {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .button-secondary {
+      background: var(--surface-soft-strong);
+      color: var(--white);
+      border: 1px solid var(--button-border);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      opacity: .95;
+    }
+
+    .section {
+      padding-top: 48px;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .section-label .s-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gradient-soft-2), var(--gradient-soft-1));
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .section-label h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .section-label .s-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    .menu-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 22px 50px var(--shadow);
+      transition: transform .25s, border-color .25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--card-hover-border);
+    }
+
+    .menu-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .menu-thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .menu-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .menu-name {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .menu-subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .menu-price {
+      margin-top: auto;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .address-card {
+      position: relative;
+      min-height: 340px;
+      border-radius: 28px;
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1400&q=80');
+      background-size: cover;
+      background-position: center;
+      display: grid;
+      align-items: flex-end;
+      padding: 32px;
+    }
+
+    .address-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 35%, var(--overlay-strong) 100%);
+    }
+
+    .address-body {
+      position: relative;
+      z-index: 1;
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .address-title {
+      font-size: 1.05rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-bright-alt);
+    }
+
+    .address-text {
+      max-width: 480px;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-bright);
+    }
+
+    .address-meta {
+      font-size: 0.88rem;
+      color: var(--text-bright-mid);
+      letter-spacing: .06em;
+    }
+
+    .address-footer {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--text-bright-lighter);
+    }
+
+    @media (min-width: 768px) {
+      header {
+        padding-top: 28px;
+      }
+
+      nav {
+        display: block;
+      }
+
+      .page {
+        padding: 32px 20px 48px;
+      }
+
+      .hero-banner {
+        min-height: 580px;
+      }
+
+      .hero-copy {
+        left: 40px;
+        right: auto;
+        bottom: 40px;
+        top: auto;
+      }
+    }
+
+    @media (max-width: 639px) {
+      .hero-banner {
+        min-height: 420px;
+      }
+
+      .hero-copy {
+        inset: auto 20px 24px 20px;
+      }
+
+      .nav-list {
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">BARISTA <span>Café</span></div>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#service" class="nav-link">Service</a></li>
+          <li><a href="#works" class="nav-link">Works</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li><a href="#address" class="nav-action">Reserve</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-banner">
+        <div class="hero-copy">
+          <span class="hero-top">Freshly Roasted</span>
+          <h1 class="hero-title">Freshly Roasted Coffee</h1>
+          <p class="hero-text">東京のこだわりコーヒーショップ。心地よい空間で、ひとつひとつ丁寧に淹れた一杯をお届けします。</p>
+          <div class="hero-actions">
+            <a href="#menu" class="button button-primary">Menu</a>
+            <a href="#address" class="button button-secondary">Address</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="section">
+      <div class="section-label">
+        <div class="s-icon">☕</div>
+        <h2>MENU</h2>
+        <div class="s-line"></div>
+      </div>
+
+      <div class="menu-grid">
+        <article class="card menu-card">
+          <div class="menu-thumb" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="menu-body">
+            <p class="menu-name">CAFFÈ LATTE</p>
+            <p class="menu-subtitle">カフェラテ</p>
+            <p class="menu-price">¥450</p>
+          </div>
+        </article>
+
+        <article class="card menu-card">
+          <div class="menu-thumb" style="background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="menu-body">
+            <p class="menu-name">CAFFÈ MOCHA</p>
+            <p class="menu-subtitle">カフェモカ</p>
+            <p class="menu-price">¥560</p>
+          </div>
+        </article>
+
+        <article class="card menu-card">
+          <div class="menu-thumb" style="background-image: url('https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="menu-body">
+            <p class="menu-name">WHITE MOCHA</p>
+            <p class="menu-subtitle">ホワイトモカ</p>
+            <p class="menu-price">¥520</p>
+          </div>
+        </article>
+
+        <article class="card menu-card">
+          <div class="menu-thumb" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80&sat=-20');"></div>
+          <div class="menu-body">
+            <p class="menu-name">CAPPUCCINO</p>
+            <p class="menu-subtitle">カプチーノ</p>
+            <p class="menu-price">¥480</p>
+          </div>
+        </article>
+
+        <article class="card menu-card">
+          <div class="menu-thumb" style="background-image: url('https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80&sat=-20');"></div>
+          <div class="menu-body">
+            <p class="menu-name">ESPRESSO</p>
+            <p class="menu-subtitle">エスプレッソ</p>
+            <p class="menu-price">¥480</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="address" class="section">
+      <div class="section-label">
+        <div class="s-icon">📍</div>
+        <h2>ADDRESS</h2>
+        <div class="s-line"></div>
+      </div>
+
+      <article class="address-card">
+        <div class="address-body">
+          <span class="address-title">ADDRESS</span>
+          <p class="address-text">1-1-1 Jingumae, Shibuya-ku, Tokyo<br />03-1111-1111</p>
+          <p class="address-meta">@Awesome Coffee</p>
+          <p class="address-footer">週7日、毎日焙煎したての一杯をご用意しています。</p>
+        </div>
+      </article>
+    </section>
+  </main>
+  </div>
+</body>
+</html>
