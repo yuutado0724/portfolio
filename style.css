@@ -470,6 +470,24 @@ section {
   margin-bottom: 14px;
 }
 
+.work-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 7px 16px;
+  background: rgba(167,139,250,0.12);
+  border: 1px solid rgba(167,139,250,0.4);
+  color: var(--accent);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.work-link:hover {
+  background: rgba(167,139,250,0.25);
+  transform: translateY(-2px);
+}
+
 .work-tags {
   display: flex;
   flex-wrap: wrap;
