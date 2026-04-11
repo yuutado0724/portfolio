@@ -108,6 +108,56 @@ document.querySelectorAll('.work-slider-wrap').forEach(wrap => {
   dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
 });
 
+// ===== ライトボックス =====
+const lightbox     = document.getElementById('lightbox');
+const lbImg        = document.getElementById('lightbox-img');
+const lbCounter    = document.getElementById('lightbox-counter');
+const lbClose      = document.getElementById('lightbox-close');
+const lbPrev       = document.getElementById('lightbox-prev');
+const lbNext       = document.getElementById('lightbox-next');
+
+let lbImages = [];
+let lbIndex  = 0;
+
+function lbOpen(imgs, idx) {
+  lbImages = imgs;
+  lbShow(idx);
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbClose_() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbShow(idx) {
+  lbIndex = (idx + lbImages.length) % lbImages.length;
+  lbImg.src = lbImages[lbIndex].src;
+  lbImg.alt = lbImages[lbIndex].alt;
+  lbCounter.textContent = `${lbIndex + 1} / ${lbImages.length}`;
+}
+
+lbClose.addEventListener('click', lbClose_);
+lbPrev.addEventListener('click', () => lbShow(lbIndex - 1));
+lbNext.addEventListener('click', () => lbShow(lbIndex + 1));
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lbClose_(); });
+document.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose_();
+  if (e.key === 'ArrowLeft')  lbShow(lbIndex - 1);
+  if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+});
+
+// スライダー画像にライトボックスを連携
+document.querySelectorAll('.work-slider-wrap').forEach(wrap => {
+  const imgs = Array.from(wrap.querySelectorAll('.slider-img'));
+  imgs.forEach((img, i) => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => lbOpen(imgs, i));
+  });
+});
+
 // ===== コンタクトフォーム =====
 const form = document.getElementById('contact-form');
 const notice = document.getElementById('form-notice');
