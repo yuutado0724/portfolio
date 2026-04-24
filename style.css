@@ -68,11 +68,13 @@ a {
 }
 
 .nav-avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
+  max-height: calc(var(--nav-height) - 24px);
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--accent);
+  display: block;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
