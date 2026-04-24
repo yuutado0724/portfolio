@@ -62,12 +62,23 @@ a {
 }
 
 .nav-logo {
-  font-size: 1.4rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-avatar:hover {
+  border-color: var(--accent2);
+  transform: scale(1.08);
 }
 
 .nav-links {
