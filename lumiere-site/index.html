@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumière — 結婚相談所</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=Lato:wght@300;400&family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #FAF7F2;
+    --cream: #F5EFE6;
+    --blush: #E8C5C0;
+    --rose: #C9897F;
+    --dusty-mauve: #9E6B72;
+    --deep: #2C1F2A;
+    --gold: #B89A6A;
+    --gold-light: #D4B896;
+    --warm-gray: #8A7F7A;
+    --soft-black: #1A1218;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--deep);
+    font-family: 'Noto Serif JP', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 24px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(250,247,242,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,154,106,0.15);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; letter-spacing: 0.12em;
+    color: var(--deep);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); font-style: italic; }
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--warm-gray); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ivory); background: var(--deep);
+    padding: 12px 28px; border: none; cursor: pointer;
+    transition: background 0.3s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--dusty-mauve); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-left {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px 80px 80px;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 40px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 5vw, 80px);
+    font-weight: 300;
+    line-height: 1.12;
+    color: var(--deep);
+    margin-bottom: 16px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--dusty-mauve);
+  }
+  .hero-subtitle-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px; font-weight: 300;
+    letter-spacing: 0.28em;
+    color: var(--warm-gray);
+    margin-bottom: 40px;
+    line-height: 2;
+  }
+  .hero-desc {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px; font-weight: 300;
+    line-height: 2.2; letter-spacing: 0.06em;
+    color: var(--warm-gray);
+    max-width: 400px;
+    margin-bottom: 56px;
+  }
+  .hero-actions {
+    display: flex; gap: 20px; align-items: center;
+  }
+  .btn-primary {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ivory); background: var(--deep);
+    padding: 18px 44px; border: none; cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: width 0.4s;
+  }
+  .btn-primary:hover::after { width: 100%; }
+  .btn-primary:hover { background: var(--dusty-mauve); }
+  .btn-ghost {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--deep);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--deep);
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+  }
+  .hero-img-main {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform-origin: center;
+    animation: subtle-zoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes subtle-zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.04); }
+  }
+  .hero-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(44,31,42,0.15) 0%, transparent 60%);
+  }
+  .hero-badge {
+    position: absolute; bottom: 48px; left: -28px;
+    background: var(--ivory);
+    padding: 24px 32px;
+    box-shadow: 0 8px 40px rgba(44,31,42,0.12);
+    z-index: 3;
+  }
+  .hero-badge-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px; font-weight: 500;
+    color: var(--deep);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    font-feature-settings: "lnum" 1, "tnum" 1;
+    font-variant-numeric: lining-nums tabular-nums;
+    display: flex; align-items: baseline;
+  }
+  .hero-badge-num span {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--gold);
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  .hero-badge-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--warm-gray);
+    margin-top: 8px;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-band {
+    background: var(--deep);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex; gap: 0;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; letter-spacing: 0.3em;
+    color: var(--gold-light);
+    padding: 0 48px;
+    font-style: italic;
+  }
+  .marquee-dot {
+    color: var(--rose); opacity: 0.6;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── STATS ── */
+  .stats-section {
+    padding: 96px 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(184,154,106,0.15);
+  }
+  .stat-item {
+    padding: 48px 40px;
+    background: var(--ivory);
+    text-align: center;
+    position: relative;
+  }
+  .stat-item::after {
+    content: '';
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 0; height: 2px; background: var(--gold);
+    transition: width 0.6s;
+  }
+  .stat-item:hover::after { width: 60%; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px; font-weight: 600;
+    color: var(--deep);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    font-feature-settings: "lnum" 1, "tnum" 1;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .stat-num sup {
+    font-size: 22px; color: var(--gold);
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  .stat-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px; font-weight: 300;
+    letter-spacing: 0.22em;
+    color: var(--warm-gray);
+    margin-top: 12px;
+  }
+
+  /* ── PHILOSOPHY ── */
+  .philosophy {
+    padding: 120px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .philosophy-text {}
+  .section-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--gold);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 3.5vw, 58px);
+    font-weight: 300; line-height: 1.2;
+    color: var(--deep);
+    margin-bottom: 32px;
+  }
+  .section-title em {
+    font-style: italic; color: var(--dusty-mauve);
+  }
+  .section-body {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px; font-weight: 300;
+    line-height: 2.4; letter-spacing: 0.05em;
+    color: var(--warm-gray);
+    margin-bottom: 48px;
+  }
+  .philosophy-images {
+    position: relative;
+    height: 580px;
+  }
+  .phil-img-1 {
+    position: absolute;
+    top: 0; right: 0;
+    width: 72%; height: 75%;
+    object-fit: cover;
+  }
+  .phil-img-2 {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 50%; height: 54%;
+    object-fit: cover;
+    border: 8px solid var(--ivory);
+  }
+  .phil-accent {
+    position: absolute;
+    top: 50%; left: 48%;
+    transform: translate(-50%, -50%);
+    width: 80px; height: 80px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--ivory);
+    z-index: 3;
+  }
+  .phil-accent-inner {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; font-style: italic;
+    color: var(--gold); letter-spacing: 0.05em;
+    text-align: center; line-height: 1.4;
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    background: var(--deep);
+    padding: 120px 80px;
+  }
+  .services-header {
+    text-align: center; margin-bottom: 80px;
+  }
+  .services-header .section-eyebrow {
+    justify-content: center;
+    color: var(--gold-light);
+  }
+  .services-header .section-eyebrow::before { background: var(--gold-light); }
+  .services-header .section-title {
+    color: var(--ivory);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    padding: 56px 40px;
+    background: rgba(255,255,255,0.04);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: pointer;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 2px; height: 0;
+    background: var(--gold);
+    transition: height 0.5s;
+  }
+  .service-card:hover { background: rgba(255,255,255,0.08); }
+  .service-card:hover::before { height: 100%; }
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px; font-weight: 600;
+    color: rgba(184,154,106,0.22);
+    line-height: 1;
+    margin-bottom: 24px;
+    transition: color 0.4s;
+    letter-spacing: 0.02em;
+  }
+  .service-card:hover .service-num {
+    color: rgba(184,154,106,0.3);
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .service-name-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 12px; font-weight: 300;
+    letter-spacing: 0.25em;
+    color: var(--gold-light);
+    margin-bottom: 24px;
+  }
+  .service-desc {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px; font-weight: 300;
+    line-height: 2.1; letter-spacing: 0.04em;
+    color: rgba(250,247,242,0.5);
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    padding: 120px 80px;
+    background: var(--cream);
+  }
+  .testimonials-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 72px;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .testimonial-card {
+    background: var(--ivory);
+    padding: 48px 40px;
+    position: relative;
+  }
+  .testimonial-card::before {
+    content: '\201C';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px; line-height: 0.8;
+    color: var(--blush);
+    position: absolute; top: 32px; left: 32px;
+  }
+  .testimonial-tag {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    padding-left: 0;
+  }
+  .testimonial-body {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px; font-weight: 300;
+    line-height: 2.3; letter-spacing: 0.05em;
+    color: var(--deep);
+    margin-bottom: 32px;
+    margin-top: 16px;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .testimonial-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blush), var(--rose));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; color: var(--ivory);
+    font-style: italic;
+  }
+  .testimonial-name {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px; font-weight: 400;
+    color: var(--deep);
+  }
+  .testimonial-meta {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px; letter-spacing: 0.08em;
+    color: var(--warm-gray);
+    margin-top: 3px;
+  }
+
+  /* ── FLOW ── */
+  .flow {
+    padding: 120px 80px;
+  }
+  .flow-header { margin-bottom: 72px; }
+  .flow-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: relative;
+  }
+  .flow-steps::before {
+    content: '';
+    position: absolute;
+    top: 32px; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), var(--gold), transparent);
+  }
+  .flow-step {
+    text-align: center; padding: 0 16px;
+    position: relative; z-index: 1;
+  }
+  .flow-num {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--ivory);
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: var(--gold); font-weight: 600;
+    transition: all 0.3s;
+    letter-spacing: 0.04em;
+  }
+  .flow-step:hover .flow-num {
+    background: var(--deep); color: var(--gold-light);
+    border-color: var(--deep);
+  }
+  .flow-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px; font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--deep);
+    margin-bottom: 12px;
+  }
+  .flow-desc {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 12px; font-weight: 300;
+    line-height: 1.9; color: var(--warm-gray);
+  }
+
+  /* ── GALLERY ── */
+  .gallery {
+    background: var(--cream);
+    padding: 120px 0;
+    overflow: hidden;
+  }
+  .gallery-inner {
+    padding: 0 80px;
+    margin-bottom: 48px;
+  }
+  .gallery-strip {
+    display: flex; gap: 16px;
+    padding: 0 80px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    cursor: grab;
+  }
+  .gallery-strip::-webkit-scrollbar { display: none; }
+  .gallery-item {
+    flex: 0 0 320px;
+    height: 420px;
+    overflow: hidden;
+    position: relative;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-item-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(44,31,42,0.5) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.4s;
+    display: flex; align-items: flex-end;
+    padding: 24px;
+  }
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+  .gallery-item-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ivory);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 560px;
+    display: flex; align-items: center;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    background-image: url('images/cta-bg.jpg');
+    background-size: cover; background-position: center;
+    filter: brightness(0.35);
+  }
+  .cta-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    width: 100%; padding: 120px 80px;
+  }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 4vw, 72px);
+    font-weight: 300; line-height: 1.2;
+    color: var(--ivory);
+    margin-bottom: 24px;
+  }
+  .cta-title em { font-style: italic; color: var(--gold-light); }
+  .cta-subtitle {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px; font-weight: 300;
+    letter-spacing: 0.15em; line-height: 2.2;
+    color: rgba(250,247,242,0.7);
+    margin-bottom: 56px;
+  }
+  .cta-actions {
+    display: flex; gap: 20px; justify-content: center; align-items: center;
+  }
+  .btn-light {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--deep); background: var(--ivory);
+    padding: 20px 52px; border: none; cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-light:hover { background: var(--gold-light); }
+  .btn-border {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ivory);
+    padding: 20px 52px;
+    border: 1px solid rgba(250,247,242,0.4);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-border:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--soft-black);
+    padding: 80px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 64px;
+    margin-bottom: 64px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; letter-spacing: 0.1em;
+    color: var(--ivory); margin-bottom: 4px;
+  }
+  .footer-brand-name span { font-style: italic; color: var(--gold-light); }
+  .footer-tagline {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px; font-weight: 300;
+    letter-spacing: 0.2em; color: var(--warm-gray);
+    margin-bottom: 28px;
+  }
+  .footer-desc {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 12px; font-weight: 300;
+    line-height: 2.1; color: rgba(138,127,122,0.7);
+  }
+  .footer-col-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 24px;
+  }
+  .footer-links {
+    list-style: none; display: flex; flex-direction: column; gap: 12px;
+  }
+  .footer-links a {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 12px; font-weight: 300; letter-spacing: 0.06em;
+    color: rgba(138,127,122,0.7);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--ivory); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px; letter-spacing: 0.1em;
+    color: rgba(138,127,122,0.4);
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 72px;
+    }
+    .hero-left {
+      padding: 48px 24px 40px;
+      order: 2;
+    }
+    .hero-right {
+      height: 55vw;
+      order: 1;
+    }
+    .hero-title { font-size: 40px; }
+    .hero-badge { left: 16px; bottom: 16px; padding: 16px 20px; }
+    .hero-badge-num { font-size: 28px; }
+    .stats-section {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 48px 24px;
+    }
+    .stat-item { padding: 32px 20px; }
+    .philosophy {
+      grid-template-columns: 1fr;
+      padding: 72px 24px;
+      gap: 48px;
+    }
+    .philosophy-images { height: 320px; }
+    .services { padding: 72px 24px; }
+    .services-grid { grid-template-columns: 1fr; gap: 2px; }
+    .testimonials { padding: 72px 24px; }
+    .testimonials-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
+    .flow { padding: 72px 24px; }
+    .flow-steps {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .flow-steps::before { display: none; }
+    .gallery-strip { padding: 0 24px; }
+    .gallery-inner { padding: 0 24px; }
+    .cta-content { padding: 80px 24px; }
+    .cta-actions { flex-direction: column; }
+    footer { padding: 48px 24px; }
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">L<span>umière</span></a>
+  <ul class="nav-links">
+    <li><a href="#">私たちについて</a></li>
+    <li><a href="#">サービス</a></li>
+    <li><a href="#">成婚実績</a></li>
+    <li><a href="#">料金案内</a></li>
+    <li><a href="#">よくある質問</a></li>
+  </ul>
+  <a href="#" class="nav-cta">無料相談を予約</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left fade-in">
+    <p class="hero-eyebrow">Marriage Consultation</p>
+    <h1 class="hero-title">
+      あなたらしい<br>
+      <em>愛のかたち</em>を<br>
+      見つけに。
+    </h1>
+    <p class="hero-subtitle-jp">真剣な出会いを、丁寧に。</p>
+    <p class="hero-desc">
+      一人ひとりの価値観と夢に寄り添い、<br>
+      生涯のパートナーとの出会いを<br>
+      心を込めてサポートします。
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">無料カウンセリング</a>
+      <a href="#" class="btn-ghost">サービスを見る →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="images/hero-img-main.jpg" alt="wedding rings with flowers" class="hero-img-main">
+    <div class="hero-img-overlay"></div>
+    <div class="hero-badge">
+      <div class="hero-badge-num">98<span>%</span></div>
+      <div class="hero-badge-label">顧客満足度</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span class="marquee-item">Sincere Encounters</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">真剣な出会い</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Lifelong Partnership</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">幸せな未来へ</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Heartfelt Support</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">あなたらしい愛のかたち</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Sincere Encounters</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">真剣な出会い</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Lifelong Partnership</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">幸せな未来へ</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">Heartfelt Support</span><span class="marquee-dot">✦</span>
+    <span class="marquee-item">あなたらしい愛のかたち</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stat-item fade-in">
+    <div class="stat-num">3,200<sup>+</sup></div>
+    <div class="stat-label">成婚カップル数</div>
+  </div>
+  <div class="stat-item fade-in" style="transition-delay:0.1s">
+    <div class="stat-num">15<sup>年</sup></div>
+    <div class="stat-label">運営実績</div>
+  </div>
+  <div class="stat-item fade-in" style="transition-delay:0.2s">
+    <div class="stat-num">98<sup>%</sup></div>
+    <div class="stat-label">顧客満足度</div>
+  </div>
+  <div class="stat-item fade-in" style="transition-delay:0.3s">
+    <div class="stat-num">12<sup>ヶ月</sup></div>
+    <div class="stat-label">平均成婚期間</div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="philosophy-text fade-in">
+    <p class="section-eyebrow">Our Philosophy</p>
+    <h2 class="section-title">
+      真剣な想いを、<br>
+      <em>丁寧に</em>紡ぐ。
+    </h2>
+    <p class="section-body">
+      結婚は人生の大切な節目。だからこそ、
+      私たちは「出会い」だけでなく、
+      「これからの人生」を一緒に考えます。<br><br>
+      専任カウンセラーがお一人おひとりに寄り添い、
+      価値観・ライフスタイル・将来のビジョンを
+      丁寧にヒアリング。あなただけの出会いの場を
+      ご用意します。
+    </p>
+    <a href="#" class="btn-primary">私たちについて詳しく</a>
+  </div>
+  <div class="philosophy-images fade-in" style="transition-delay:0.2s">
+    <img src="images/phil-img-1.jpg" alt="bridal bouquet in the sky" class="phil-img-1">
+    <img src="images/phil-img-2.jpg" alt="bridal bouquet in the sky" class="phil-img-2" style="object-position: left center;">
+    <div class="phil-accent">
+      <div class="phil-accent-inner">Since<br>2009</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="services-header fade-in">
+    <p class="section-eyebrow" style="color:var(--gold-light);justify-content:center;">Our Services</p>
+    <h2 class="section-title" style="color:var(--ivory);text-align:center;">
+      あなたに合った<br>
+      <em>サポートプラン</em>
+    </h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-num">01</div>
+      <div class="service-name">Personal Concierge</div>
+      <div class="service-name-jp">専任コンシェルジュプラン</div>
+      <p class="service-desc">
+        専任カウンセラーが二人三脚で伴走。
+        お相手探しからデート後のフォローまで、
+        すべてのプロセスをサポートします。
+      </p>
+    </div>
+    <div class="service-card fade-in" style="transition-delay:0.1s">
+      <div class="service-num">02</div>
+      <div class="service-name">Style Matching</div>
+      <div class="service-name-jp">ライフスタイルマッチング</div>
+      <p class="service-desc">
+        価値観・趣味・ライフスタイルに
+        基づいた独自のAIマッチングで、
+        相性の良いお相手をご紹介します。
+      </p>
+    </div>
+    <div class="service-card fade-in" style="transition-delay:0.2s">
+      <div class="service-num">03</div>
+      <div class="service-name">Premium Events</div>
+      <div class="service-name-jp">プレミアムパーティー</div>
+      <p class="service-desc">
+        厳選された会場での少人数制
+        パーティーを毎月開催。
+        自然な出会いの場をご提供します。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-header">
+    <div>
+      <p class="section-eyebrow">Real Voices</p>
+      <h2 class="section-title">成婚者の声</h2>
+    </div>
+    <a href="#" class="btn-ghost">すべての声を見る →</a>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card fade-in">
+      <div class="testimonial-tag">Happy Couple ✦ 2024</div>
+      <p class="testimonial-body">
+        カウンセラーさんが私の気持ちに
+        寄り添ってくれて、安心して活動できました。
+        出会ってから8ヶ月でプロポーズされ、
+        今は幸せな毎日を送っています。
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">M</div>
+        <div>
+          <div class="testimonial-name">M.K さん</div>
+          <div class="testimonial-meta">30代 · 医療従事者</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-in" style="transition-delay:0.15s">
+      <div class="testimonial-tag">Happy Couple ✦ 2024</div>
+      <p class="testimonial-body">
+        他のサービスは何となく合わなかったのですが、
+        Lumièreのカウンセラーさんとの相性が
+        よくて、活動を楽しめました。
+        素敵なご縁をいただきました。
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">A</div>
+        <div>
+          <div class="testimonial-name">A.T さん</div>
+          <div class="testimonial-meta">20代 · IT企業</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-in" style="transition-delay:0.3s">
+      <div class="testimonial-tag">Happy Couple ✦ 2023</div>
+      <p class="testimonial-body">
+        忙しい仕事の合間でも、
+        丁寧なサポートのおかげで
+        活動を続けられました。
+        今は夫と二人で新居の準備中です。
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">Y</div>
+        <div>
+          <div class="testimonial-name">Y.S さん</div>
+          <div class="testimonial-meta">30代 · 経営者</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="flow">
+  <div class="flow-header fade-in">
+    <p class="section-eyebrow">How it Works</p>
+    <h2 class="section-title">ご入会までの流れ</h2>
+  </div>
+  <div class="flow-steps">
+    <div class="flow-step fade-in">
+      <div class="flow-num">I</div>
+      <div class="flow-title">無料相談</div>
+      <p class="flow-desc">オンライン・来店どちらでも対応。お気軽にご相談ください。</p>
+    </div>
+    <div class="flow-step fade-in" style="transition-delay:0.1s">
+      <div class="flow-num">II</div>
+      <div class="flow-title">ご入会</div>
+      <p class="flow-desc">ご希望のプランをお選びいただき入会手続きを行います。</p>
+    </div>
+    <div class="flow-step fade-in" style="transition-delay:0.2s">
+      <div class="flow-num">III</div>
+      <div class="flow-title">プロフィール作成</div>
+      <p class="flow-desc">魅力が伝わるプロフィールをカウンセラーが一緒に作成。</p>
+    </div>
+    <div class="flow-step fade-in" style="transition-delay:0.3s">
+      <div class="flow-num">IV</div>
+      <div class="flow-title">お相手紹介</div>
+      <p class="flow-desc">価値観に合うお相手を厳選してご紹介いたします。</p>
+    </div>
+    <div class="flow-step fade-in" style="transition-delay:0.4s">
+      <div class="flow-num">V</div>
+      <div class="flow-title">成婚・活動終了</div>
+      <p class="flow-desc">成婚後も安心のアフターフォローで新生活をサポート。</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="gallery-inner fade-in">
+    <p class="section-eyebrow">Gallery</p>
+    <h2 class="section-title">幸せな瞬間たち</h2>
+  </div>
+  <div class="gallery-strip">
+    <div class="gallery-item">
+      <img src="images/gallery-1-resort-wedding.jpg" alt="resort wedding">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Resort Wedding</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/gallery-2-rings-and-bouquet.jpg" alt="rings and bouquet">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Promise of Forever</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/gallery-3-couple-embrace.jpg" alt="couple embrace">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Embrace</span>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/gallery-4-trunk-photo-shoot.jpg" alt="trunk photo shoot">
+      <div class="gallery-item-overlay">
+        <span class="gallery-item-label">Sweet Kiss</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-content fade-in">
+    <h2 class="cta-title">
+      あなたの<em>幸せ</em>な未来は、<br>
+      ここから始まります。
+    </h2>
+    <p class="cta-subtitle">
+      まずは無料カウンセリングで、あなたのご希望をお聞かせください。<br>
+      専任カウンセラーが、心を込めてお答えします。
+    </p>
+    <div class="cta-actions">
+      <a href="#" class="btn-light">無料相談を予約する</a>
+      <a href="#" class="btn-border">資料請求はこちら</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">L<span>umière</span></div>
+      <div class="footer-tagline">真剣な出会いを、丁寧に。</div>
+      <p class="footer-desc">
+        一人ひとりの価値観と夢に寄り添い、<br>
+        生涯のパートナーとの出会いを<br>
+        心を込めてサポートします。
+      </p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">専任コンシェルジュ</a></li>
+        <li><a href="#">マッチングサービス</a></li>
+        <li><a href="#">プレミアムパーティー</a></li>
+        <li><a href="#">料金案内</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">私たちについて</a></li>
+        <li><a href="#">カウンセラー紹介</a></li>
+        <li><a href="#">成婚実績</a></li>
+        <li><a href="#">よくある質問</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#">無料相談予約</a></li>
+        <li><a href="#">資料請求</a></li>
+        <li><a href="#">店舗アクセス</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Lumière Marriage Consultation. All rights reserved.</div>
+    <div class="footer-copy">プライバシーポリシー　｜　特定商取引法に基づく表記</div>
+  </div>
+</footer>
+
+<script>
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Gallery drag scroll
+const strip = document.querySelector('.gallery-strip');
+let isDown = false, startX, scrollLeft;
+strip.addEventListener('mousedown', e => {
+  isDown = true; strip.style.cursor = 'grabbing';
+  startX = e.pageX - strip.offsetLeft;
+  scrollLeft = strip.scrollLeft;
+});
+strip.addEventListener('mouseleave', () => { isDown = false; strip.style.cursor = 'grab'; });
+strip.addEventListener('mouseup', () => { isDown = false; strip.style.cursor = 'grab'; });
+strip.addEventListener('mousemove', e => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - strip.offsetLeft;
+  strip.scrollLeft = scrollLeft - (x - startX) * 1.5;
+});
+</script>
+</body>
+</html>
