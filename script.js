@@ -19,7 +19,6 @@ navLinks.querySelectorAll('a').forEach(link => {
 // ===== タイプアニメーション =====
 const phrases = [
   'Webデザイナー志望',
-  'Webライター',
   'AIアプリ開発　学習中',
 ];
 let phraseIndex = 0;
