@@ -691,9 +691,68 @@
     opacity: 0; transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
-  .fade-in.visible {
-    opacity: 1; transform: translateY(0);
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  .fade-in-left {
+    opacity: 0; transform: translateX(-48px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
   }
+  .fade-in-left.visible { opacity: 1; transform: translateX(0); }
+
+  .fade-in-right {
+    opacity: 0; transform: translateX(48px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .fade-in-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* ── HERO ENTRANCE ── */
+  .hero-left > * {
+    opacity: 0;
+    animation: hero-fade-up 0.9s ease forwards;
+  }
+  .hero-eyebrow    { animation-delay: 0.15s; }
+  .hero-title      { animation-delay: 0.38s; }
+  .hero-subtitle-jp{ animation-delay: 0.58s; }
+  .hero-desc       { animation-delay: 0.74s; }
+  .hero-actions    { animation-delay: 0.92s; }
+
+  @keyframes hero-fade-up {
+    from { opacity: 0; transform: translateY(36px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hero badge float */
+  .hero-badge { animation: badge-float 4.5s ease-in-out infinite; }
+  @keyframes badge-float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+  }
+
+  /* Phil accent spinning ring */
+  .phil-accent-ring {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 1px dashed rgba(184,154,106,0.5);
+    animation: slow-spin 14s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes slow-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Testimonial card hover lift */
+  .testimonial-card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 56px rgba(44,31,42,0.12);
+  }
+
+  /* CTA bg parallax hint */
+  .cta-bg { will-change: transform; }
 
   /* ── MOBILE ── */
   @media (max-width: 768px) {
@@ -816,26 +875,26 @@
 <!-- STATS -->
 <section class="stats-section">
   <div class="stat-item fade-in">
-    <div class="stat-num">3,200<sup>+</sup></div>
+    <div class="stat-num" data-target="3200" data-suffix="+">3,200<sup>+</sup></div>
     <div class="stat-label">成婚カップル数</div>
   </div>
   <div class="stat-item fade-in" style="transition-delay:0.1s">
-    <div class="stat-num">15<sup>年</sup></div>
+    <div class="stat-num" data-target="15" data-suffix="年">15<sup>年</sup></div>
     <div class="stat-label">運営実績</div>
   </div>
   <div class="stat-item fade-in" style="transition-delay:0.2s">
-    <div class="stat-num">98<sup>%</sup></div>
+    <div class="stat-num" data-target="98" data-suffix="%">98<sup>%</sup></div>
     <div class="stat-label">顧客満足度</div>
   </div>
   <div class="stat-item fade-in" style="transition-delay:0.3s">
-    <div class="stat-num">12<sup>ヶ月</sup></div>
+    <div class="stat-num" data-target="12" data-suffix="ヶ月">12<sup>ヶ月</sup></div>
     <div class="stat-label">平均成婚期間</div>
   </div>
 </section>
 
 <!-- PHILOSOPHY -->
 <section class="philosophy">
-  <div class="philosophy-text fade-in">
+  <div class="philosophy-text fade-in-left">
     <p class="section-eyebrow">Our Philosophy</p>
     <h2 class="section-title">
       真剣な想いを、<br>
@@ -852,10 +911,11 @@
     </p>
     <a href="#" class="btn-primary">私たちについて詳しく</a>
   </div>
-  <div class="philosophy-images fade-in" style="transition-delay:0.2s">
+  <div class="philosophy-images fade-in-right" style="transition-delay:0.2s">
     <img src="images/phil-img-1.jpg" alt="bridal bouquet in the sky" class="phil-img-1">
     <img src="images/phil-img-2.jpg" alt="bridal bouquet in the sky" class="phil-img-2" style="object-position: left center;">
     <div class="phil-accent">
+      <div class="phil-accent-ring"></div>
       <div class="phil-accent-inner">Since<br>2009</div>
     </div>
   </div>
@@ -1100,15 +1160,51 @@
 </footer>
 
 <script>
-// Intersection Observer for fade-in
+// Intersection Observer for fade-in (all variants)
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => observer.observe(el));
+
+// Stat counter animation
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+
+  function update(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const val = Math.round(eased * target);
+    const display = target >= 1000 ? val.toLocaleString('ja-JP') : val;
+    el.innerHTML = display + '<sup>' + suffix + '</sup>';
+    if (t < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.classList.add('visible');
+      const num = e.target.querySelector('.stat-num[data-target]');
+      if (num) animateCounter(num);
+      statObserver.unobserve(e.target);
     }
   });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-item').forEach(el => statObserver.observe(el));
+
+// CTA parallax
+const ctaBg = document.querySelector('.cta-bg');
+if (ctaBg) {
+  window.addEventListener('scroll', () => {
+    const rect = ctaBg.parentElement.getBoundingClientRect();
+    ctaBg.style.transform = 'translateY(' + (rect.top * 0.28) + 'px)';
+  }, { passive: true });
+}
 
 // Gallery drag scroll
 const strip = document.querySelector('.gallery-strip');
