@@ -153,17 +153,33 @@ document.querySelectorAll('.work-slider-wrap').forEach(function(wrap) {
 const form = document.getElementById('contact-form');
 const notice = document.getElementById('form-notice');
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = form.querySelector('button[type="submit"]');
   btn.disabled = true;
   btn.textContent = '送信中...';
 
-  setTimeout(() => {
-    notice.textContent = 'メッセージを送信しました！ありがとうございます。';
-    form.reset();
-    btn.disabled = false;
-    btn.textContent = '送信する';
-    setTimeout(() => { notice.textContent = ''; }, 5000);
-  }, 1200);
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      notice.textContent = 'メッセージを送信しました！ありがとうございます。';
+      notice.style.color = '#4ade80';
+      form.reset();
+      setTimeout(() => { notice.textContent = ''; }, 5000);
+    } else {
+      notice.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+      notice.style.color = '#f87171';
+    }
+  } catch {
+    notice.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+    notice.style.color = '#f87171';
+  }
+
+  btn.disabled = false;
+  btn.textContent = '送信する';
 });
