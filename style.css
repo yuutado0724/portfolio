@@ -839,10 +839,49 @@ section {
   letter-spacing: 0.1em;
 }
 
-/* ===== 動画モーダル 全画面ボタン非表示 ===== */
-#kidsmoneyModalVideo::-webkit-media-controls-fullscreen-button,
-#kidsmoneyModalVideo::-webkit-media-controls-picture-in-picture-button {
-  display: none !important;
+/* ===== カスタム動画プレイヤー ===== */
+.km-player {
+  width: 92vw;
+  max-width: 1000px;
+}
+
+.km-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1a1a2e;
+  padding: 8px 14px;
+  border-radius: 0 0 8px 8px;
+}
+
+.km-playbtn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  width: 28px;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.km-playbtn:hover { color: #a78bfa; }
+
+.km-progress {
+  flex: 1;
+  height: 4px;
+  accent-color: #a78bfa;
+  cursor: pointer;
+}
+
+.km-time,
+.km-duration {
+  color: #aaa;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  min-width: 34px;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===== フッター ===== */
