@@ -18,8 +18,8 @@ navLinks.querySelectorAll('a').forEach(link => {
 
 // ===== タイプアニメーション =====
 const phrases = [
-  'Webデザイナー志望',
-  'AIアプリ開発　学習中',
+  'Webデザイナー',
+  'AIエンジニア',
 ];
 let phraseIndex = 0;
 let charIndex = 0;
