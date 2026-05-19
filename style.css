@@ -839,6 +839,12 @@ section {
   letter-spacing: 0.1em;
 }
 
+/* ===== 動画モーダル 全画面ボタン非表示 ===== */
+#kidsmoneyModalVideo::-webkit-media-controls-fullscreen-button,
+#kidsmoneyModalVideo::-webkit-media-controls-picture-in-picture-button {
+  display: none !important;
+}
+
 /* ===== フッター ===== */
 footer {
   text-align: center;
