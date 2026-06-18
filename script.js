@@ -160,9 +160,20 @@ form.addEventListener('submit', async (e) => {
   btn.textContent = '送信中...';
 
   try {
+    const formData = new FormData();
+    const nameInput = form.querySelector('#name');
+    const emailInput = form.querySelector('#email');
+    const messageInput = form.querySelector('#message');
+
+    formData.append('_subject', '【ポートフォリオサイト】お問い合わせが届きました');
+    formData.append('_replyto', emailInput.value.trim());
+    formData.append('お名前', nameInput.value.trim());
+    formData.append('メールアドレス', emailInput.value.trim());
+    formData.append('お問い合わせ内容', messageInput.value.trim());
+
     const response = await fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
+      body: formData,
       headers: { 'Accept': 'application/json' }
     });
 
