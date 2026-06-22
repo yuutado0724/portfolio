@@ -1,12 +1,38 @@
 // ===== ナビゲーション: スクロールで背景を追加 =====
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.prepend(progressBar);
+
+const ambientGrid = document.createElement('div');
+ambientGrid.className = 'ambient-grid';
+document.body.prepend(ambientGrid);
+
+function updatePageChrome() {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
-});
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+  progressBar.style.setProperty('--scroll-progress', progress + '%');
+
+  let currentSection = null;
+  document.querySelectorAll('section').forEach(section => {
+    if (section.offsetTop <= window.scrollY + 140) currentSection = section;
+  });
+
+  if (currentSection) {
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + currentSection.id);
+    });
+  }
+}
 
 // ===== ハンバーガーメニュー =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.querySelector('.nav-links');
+
+window.addEventListener('scroll', updatePageChrome, { passive: true });
+window.addEventListener('resize', updatePageChrome);
+updatePageChrome();
 
 hamburger.addEventListener('click', () => {
   navLinks.classList.toggle('open');
@@ -51,6 +77,31 @@ function type() {
 }
 
 type();
+
+// ===== Motion accents =====
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!reduceMotion) {
+  window.addEventListener('pointermove', (e) => {
+    document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
+    document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
+  }, { passive: true });
+
+  document.querySelectorAll('.skill-card, .strength-card, .work-card').forEach(card => {
+    card.addEventListener('pointermove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * -6;
+      card.style.setProperty('--tilt-x', x.toFixed(2) + 'deg');
+      card.style.setProperty('--tilt-y', y.toFixed(2) + 'deg');
+    });
+
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--tilt-x', '0deg');
+      card.style.setProperty('--tilt-y', '0deg');
+    });
+  });
+}
 
 // ===== フェードイン (IntersectionObserver) =====
 const fadeEls = document.querySelectorAll('.fade-in');
@@ -130,6 +181,7 @@ document.querySelectorAll('.work-slider-wrap').forEach(function(wrap) {
   const btnPrev = wrap.querySelector('.slider-prev');
   const btnNext = wrap.querySelector('.slider-next');
   let current   = 0;
+  let isPaused = false;
 
   function goTo(n) {
     current = (n + imgEls.length) % imgEls.length;
@@ -140,6 +192,17 @@ document.querySelectorAll('.work-slider-wrap').forEach(function(wrap) {
   btnPrev.addEventListener('click', function() { goTo(current - 1); });
   btnNext.addEventListener('click', function() { goTo(current + 1); });
   dots.forEach(function(d, i) { d.addEventListener('click', function() { goTo(i); }); });
+
+  if (!reduceMotion && imgEls.length > 1) {
+    setInterval(function() {
+      if (!isPaused) goTo(current + 1);
+    }, 4800);
+
+    wrap.addEventListener('pointerenter', function() { isPaused = true; });
+    wrap.addEventListener('pointerleave', function() { isPaused = false; });
+    wrap.addEventListener('focusin', function() { isPaused = true; });
+    wrap.addEventListener('focusout', function() { isPaused = false; });
+  }
 
   // 各画像クリックでライトボックスを開く
   var srcs = imgEls.map(function(el) { return el.getAttribute('src'); });
