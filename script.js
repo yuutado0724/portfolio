@@ -8,6 +8,22 @@ const ambientGrid = document.createElement('div');
 ambientGrid.className = 'ambient-grid';
 document.body.prepend(ambientGrid);
 
+const meteorLayer = document.createElement('div');
+meteorLayer.className = 'meteor-layer';
+document.body.prepend(meteorLayer);
+
+for (let i = 0; i < 48; i++) {
+  const meteor = document.createElement('span');
+  meteor.className = 'meteor';
+  meteor.style.setProperty('--meteor-top', (Math.random() * 118 - 18).toFixed(2) + 'vh');
+  meteor.style.setProperty('--meteor-left', (104 + Math.random() * 58).toFixed(2) + 'vw');
+  meteor.style.setProperty('--meteor-delay', (Math.random() * 5.6).toFixed(2) + 's');
+  meteor.style.setProperty('--meteor-duration', (4.2 + Math.random() * 3.4).toFixed(2) + 's');
+  meteor.style.setProperty('--meteor-length', (80 + Math.random() * 150).toFixed(0) + 'px');
+  meteor.style.setProperty('--meteor-opacity', (0.18 + Math.random() * 0.32).toFixed(2));
+  meteorLayer.appendChild(meteor);
+}
+
 function updatePageChrome() {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
