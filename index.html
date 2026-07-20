@@ -3,33 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070909">
+  <meta name="description" content="原 裕太のポートフォリオ。Webデザイン、AIを活用したアプリ・ツール開発の制作実績を紹介しています。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23060807'/%3E%3Cpath d='M8 8h48v48H8z' fill='none' stroke='%23c9ff38' stroke-width='3'/%3E%3Ctext x='32' y='38' text-anchor='middle' font-family='monospace' font-weight='700' font-size='18' fill='%23c9ff38'%3EYH%3C/text%3E%3C/svg%3E">
   <title>Portfolio | 原 裕太</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=shift-20260717">
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">本文へスキップ</a>
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+  <div class="scene" aria-hidden="true">
+    <div class="scene-glow scene-glow-a"></div>
+    <div class="scene-glow scene-glow-b"></div>
+    <div class="scene-grid"></div>
+    <div class="scene-noise"></div>
+  </div>
+
   <!-- ナビゲーション -->
-  <nav id="navbar">
+  <nav id="navbar" aria-label="主要ナビゲーション">
     <div class="nav-container">
-      <a href="#hero" class="nav-logo"><img src="photo2.png" alt="原 裕太" class="nav-avatar"></a>
-      <ul class="nav-links">
+      <a href="#hero" class="nav-logo" aria-label="原 裕太 ポートフォリオの先頭へ">
+        <span class="nav-mark" aria-hidden="true">YH</span>
+        <span class="nav-identity"><strong>YUTA HARA</strong><small>DESIGN × AI</small></span>
+      </a>
+      <ul class="nav-links" id="primary-navigation">
         <li><a href="#hero">ホーム</a></li>
         <li><a href="#about">About Me</a></li>
         <li><a href="#skills">スキル</a></li>
         <li><a href="#works">制作物</a></li>
         <li><a href="#contact">連絡先</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <button class="hamburger" id="hamburger" type="button" aria-label="メニュー" aria-controls="primary-navigation" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
+  <main id="main-content" tabindex="-1">
   <!-- ヒーローセクション -->
-  <section id="hero">
+  <section id="hero" aria-labelledby="hero-name">
+    <div class="hero-orbit" aria-hidden="true">
+      <span class="orbit orbit-one"></span>
+      <span class="orbit orbit-two"></span>
+      <span class="orbit-dot"></span>
+    </div>
+    <div class="hero-side-label hero-side-left" aria-hidden="true">WEB / AI / CREATIVE</div>
+    <div class="hero-side-label hero-side-right" aria-hidden="true">YUTA HARA / 2026</div>
     <div class="hero-content">
+      <p class="hero-kicker"><span>PORTFOLIO</span><span>2026</span></p>
       <p class="hero-greeting">はじめまして、私は</p>
-      <h1 class="hero-name">原 裕太</h1>
+      <h1 class="hero-name" id="hero-name"><span>原</span><span>裕太</span></h1>
       <p class="hero-title"><span id="typed-text"></span><span class="cursor">|</span></p>
       <div class="hero-buttons">
         <a href="#works" class="btn btn-primary">制作物を見る</a>
@@ -49,11 +73,11 @@
       <div class="about-grid">
         <div class="about-avatar fade-in">
           <div class="avatar-circle">
-            <img src="photo2.png" alt="原 裕太">
+            <img src="photo2.webp" alt="原 裕太" loading="lazy" decoding="async">
           </div>
         </div>
         <div class="about-text fade-in">
-          <p>現在は運送業に従事しながら、Webデザインを中心に、WebライティングやAIを活用したアプリ開発の学習に取り組んでいます。</p>
+          <p>現在は運送業に従事しながら、AIを活用したアプリ・ツール開発の学習に取り組んでいます。</p>
           <p>日々スキルを磨きながら、実務レベルでの品質向上を目指して活動しています。</p>
           <div class="about-meta">
             <div class="meta-item">
@@ -62,7 +86,7 @@
             </div>
             <div class="meta-item">
               <span class="meta-label">学習中</span>
-              <span class="meta-value">Webデザイン / ライティング / AI開発</span>
+              <span class="meta-value">AI開発</span>
             </div>
             <div class="meta-item">
               <span class="meta-label">目標</span>
@@ -172,11 +196,11 @@
           <div class="work-card fade-in">
             <div class="work-thumb work-slider-wrap">
               <div class="work-slider">
-                <img src="熊谷桜堤1枚目.PNG" class="slider-img" alt="熊谷桜堤 Instagram投稿 1枚目">
-                <img src="熊谷桜堤2枚目.PNG" class="slider-img" alt="熊谷桜堤 Instagram投稿 2枚目">
-                <img src="熊谷桜堤3枚目.PNG" class="slider-img" alt="熊谷桜堤 Instagram投稿 3枚目">
-                <img src="熊谷桜堤4枚目.PNG" class="slider-img" alt="熊谷桜堤 Instagram投稿 4枚目">
-                <img src="熊谷桜堤5枚目.PNG" class="slider-img" alt="熊谷桜堤 Instagram投稿 5枚目">
+                <img src="kumagaya-1.webp" class="slider-img" alt="熊谷桜堤 Instagram投稿 1枚目" loading="eager" decoding="async">
+                <img src="kumagaya-2.webp" class="slider-img" alt="熊谷桜堤 Instagram投稿 2枚目" loading="lazy" decoding="async">
+                <img src="kumagaya-3.webp" class="slider-img" alt="熊谷桜堤 Instagram投稿 3枚目" loading="lazy" decoding="async">
+                <img src="kumagaya-4.webp" class="slider-img" alt="熊谷桜堤 Instagram投稿 4枚目" loading="lazy" decoding="async">
+                <img src="kumagaya-5.webp" class="slider-img" alt="熊谷桜堤 Instagram投稿 5枚目" loading="lazy" decoding="async">
               </div>
               <button class="slider-prev" aria-label="前へ">&#8249;</button>
               <button class="slider-next" aria-label="次へ">&#8250;</button>
@@ -201,7 +225,7 @@
           </div>
           <div class="work-card fade-in">
             <div class="work-thumb" style="overflow: hidden; padding: 0; height: 220px;">
-              <img src="BARISTA.png" alt="Webデザイン作成 BARISTA" style="width: 100%; height: 100%; object-fit: cover;">
+              <img src="barista.webp" alt="Webデザイン作成 BARISTA" loading="eager" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div class="work-info">
               <h3>Webデザイン作成</h3>
@@ -210,12 +234,12 @@
                 <span class="tag">Figma</span>
                 <span class="tag">UIデザイン</span>
               </div>
-              <a href="https://www.figma.com/design/JNxG5Az2VzM9Ky0dOaCyzb/Web%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%EF%BC%91?node-id=10-17&t=kRoT1sZEmLHIhPpi-1" target="_blank" rel="noopener noreferrer" class="work-link">Figmaで見る &#8599;</a>
+              <a href="https://www.figma.com/design/JNxG5Az2VzM9Ky0dOaCyzb/Web%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%EF%BC%91?node-id=10-17&t=kRoT1sZEmLHIhPpi-1" target="_blank" rel="noopener noreferrer" class="work-link" aria-label="Figmaで見る（新しいタブで開く）">Figmaで見る &#8599;</a>
             </div>
           </div>
           <div class="work-card fade-in">
             <div class="work-thumb" style="overflow: hidden; padding: 0; height: 220px;">
-              <img src="lumiere-site/images/hero-img-main.jpg" alt="Lumière 結婚相談所サイト" style="width: 100%; height: 100%; object-fit: cover;">
+              <img src="lumiere-site/images/hero-img-main.jpg" alt="Lumière 結婚相談所サイト" loading="eager" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div class="work-info">
               <h3>結婚相談所 ランディングページ（Lumière）</h3>
@@ -226,7 +250,7 @@
                 <span class="tag">JavaScript</span>
                 <span class="tag">Webデザイン</span>
               </div>
-              <a href="lumiere-site/index.html" target="_blank" rel="noopener noreferrer" class="work-link">サイトを見る &#8599;</a>
+              <a href="lumiere-site/index.html" target="_blank" rel="noopener noreferrer" class="work-link" aria-label="Lumièreのサイトを見る（新しいタブで開く）">サイトを見る &#8599;</a>
             </div>
           </div>
         </div>
@@ -238,11 +262,11 @@
           <div class="work-card fade-in">
             <div class="work-thumb work-slider-wrap">
               <div class="work-slider">
-                <img src="keyscope1.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット1">
-                <img src="keyscope2.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット2">
-                <img src="keyscope3.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット3">
-                <img src="keyscope4.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット4">
-                <img src="keyscope5.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット5">
+                <img src="keyscope1.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット1" loading="eager" decoding="async">
+                <img src="keyscope2.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット2" loading="lazy" decoding="async">
+                <img src="keyscope3.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット3" loading="lazy" decoding="async">
+                <img src="keyscope4.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット4" loading="lazy" decoding="async">
+                <img src="keyscope5.png" class="slider-img" alt="SEOキーワード調査ツール スクリーンショット5" loading="lazy" decoding="async">
               </div>
               <button class="slider-prev" aria-label="前へ">&#8249;</button>
               <button class="slider-next" aria-label="次へ">&#8250;</button>
@@ -268,12 +292,12 @@
           <div class="work-card fade-in">
             <div class="work-thumb work-slider-wrap">
               <div class="work-slider">
-                <img src="task1.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット1">
-                <img src="task2.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット2">
-                <img src="task3.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット3">
-                <img src="task4.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット4">
-                <img src="task5.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット5">
-                <img src="task6.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット6">
+                <img src="task1.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット1" loading="eager" decoding="async">
+                <img src="task2.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット2" loading="lazy" decoding="async">
+                <img src="task3.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット3" loading="lazy" decoding="async">
+                <img src="task4.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット4" loading="lazy" decoding="async">
+                <img src="task5.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット5" loading="lazy" decoding="async">
+                <img src="task6.png" class="slider-img" alt="看板ボード風タスク管理ツール スクリーンショット6" loading="lazy" decoding="async">
               </div>
               <button class="slider-prev" aria-label="前へ">&#8249;</button>
               <button class="slider-next" aria-label="次へ">&#8250;</button>
@@ -297,8 +321,8 @@
             </div>
           </div>
           <div class="work-card fade-in">
-            <div class="work-thumb kidsmoney-thumb" style="overflow: hidden; padding: 0; height: 220px; position: relative; cursor: pointer;">
-              <video id="kidsmoneyVideo" src="キッズマネー4.mov" poster="キッズマネーサムネ.png" style="width: 100%; height: 100%; object-fit: cover;" preload="metadata" playsinline></video>
+            <div class="work-thumb kidsmoney-thumb" role="button" tabindex="0" aria-label="キッズマネーの紹介動画を再生" style="overflow: hidden; padding: 0; height: 220px; position: relative; cursor: pointer;">
+              <video id="kidsmoneyVideo" src="キッズマネー4.mov" poster="キッズマネーサムネ.png" style="width: 100%; height: 100%; object-fit: cover;" preload="none" playsinline></video>
               <div class="kidsmoney-overlay" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.25);">
                 <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.3); pointer-events: none;">
                   <svg width="26" height="26" viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19" fill="#333"/></svg>
@@ -343,11 +367,12 @@
             <textarea id="message" name="message" rows="5" placeholder="メッセージを入力してください" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-full">送信する</button>
-          <p class="form-notice" id="form-notice"></p>
+          <p class="form-notice" id="form-notice" aria-live="polite"></p>
         </form>
       </div>
     </div>
   </section>
+  </main>
 
   <!-- フッター -->
   <footer>
@@ -355,16 +380,10 @@
   </footer>
 
   <!-- 動画モーダル -->
-  <div id="video-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:2000; align-items:center; justify-content:center;">
-    <button id="video-modal-close" style="position:absolute; top:16px; right:20px; background:none; border:none; color:#fff; font-size:2.4rem; line-height:1; cursor:pointer; z-index:2001;">&times;</button>
+  <div id="video-modal" role="dialog" aria-modal="true" aria-label="キッズマネー紹介動画" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:2000; align-items:center; justify-content:center;">
+    <button id="video-modal-close" type="button" aria-label="動画を閉じる" style="position:absolute; top:16px; right:20px; background:none; border:none; color:#fff; font-size:2.4rem; line-height:1; cursor:pointer; z-index:2001;">&times;</button>
     <div class="km-player">
-      <video id="kidsmoneyModalVideo" src="キッズマネー4.mov" style="width:100%; max-height:78vh; display:block; border-radius:8px 8px 0 0; background:#000;"></video>
-      <div class="km-controls">
-        <button class="km-playbtn" aria-label="再生">&#9654;</button>
-        <span class="km-time">0:00</span>
-        <input type="range" class="km-progress" value="0" min="0" max="100" step="0.1">
-        <span class="km-duration">0:00</span>
-      </div>
+      <video id="kidsmoneyModalVideo" src="キッズマネー4.mov" controls preload="none" playsinline style="width:100%; max-height:82vh; display:block; background:#000;"></video>
     </div>
   </div>
 
@@ -377,68 +396,6 @@
     <div class="lightbox-counter" id="lightbox-counter"></div>
   </div>
 
-  <script src="script.js"></script>
-  <script>
-    (function () {
-      const thumb     = document.querySelector('.kidsmoney-thumb');
-      const modal     = document.getElementById('video-modal');
-      const video     = document.getElementById('kidsmoneyModalVideo');
-      const closeBtn  = document.getElementById('video-modal-close');
-      const playBtn   = document.querySelector('.km-playbtn');
-      const progress  = document.querySelector('.km-progress');
-      const timeEl    = document.querySelector('.km-time');
-      const durEl     = document.querySelector('.km-duration');
-      if (!thumb || !modal || !video) return;
-
-      function fmt(s) {
-        const m = Math.floor(s / 60);
-        return m + ':' + String(Math.floor(s % 60)).padStart(2, '0');
-      }
-
-      thumb.addEventListener('click', function () {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      });
-
-      function closeModal() {
-        video.pause();
-        playBtn.innerHTML = '&#9654;';
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-      }
-
-      playBtn.addEventListener('click', function () {
-        if (video.paused) { video.play(); playBtn.innerHTML = '&#9646;&#9646;'; }
-        else              { video.pause(); playBtn.innerHTML = '&#9654;'; }
-      });
-
-      video.addEventListener('loadedmetadata', function () {
-        durEl.textContent = fmt(video.duration);
-      });
-
-      video.addEventListener('timeupdate', function () {
-        if (video.duration) {
-          progress.value = (video.currentTime / video.duration) * 100;
-          timeEl.textContent = fmt(video.currentTime);
-        }
-      });
-
-      video.addEventListener('ended', function () {
-        playBtn.innerHTML = '&#9654;';
-      });
-
-      progress.addEventListener('input', function () {
-        video.currentTime = (progress.value / 100) * video.duration;
-      });
-
-      closeBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal) closeModal();
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeModal();
-      });
-    })();
-  </script>
+  <script src="script.js?v=shift-20260717"></script>
 </body>
 </html>
