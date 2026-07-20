@@ -35,7 +35,9 @@
     const hardwareThreads = navigator.hardwareConcurrency || 4;
     const deviceMemory = navigator.deviceMemory || 4;
     const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    const lowPowerDevice = coarsePointer || hardwareThreads <= 4 || deviceMemory <= 4;
+    // Treat mainstream laptops as the conservative tier too. A decorative
+    // background should always leave the main thread free for scrolling.
+    const lowPowerDevice = coarsePointer || hardwareThreads <= 8 || deviceMemory <= 8;
     document.documentElement.classList.toggle('low-power-motion', lowPowerDevice);
     const pointer = {
       x: window.innerWidth * 0.5,
@@ -54,14 +56,16 @@
     let scrollVelocity = 0;
     let running = true;
     let maxPageScroll = 1;
-    let connectionStep = lowPowerDevice ? 2 : 1;
+    let connectionStep = lowPowerDevice ? 3 : 2;
     let slowFrameCount = 0;
     let lastFrameTimestamp = 0;
+    let lastDrawTimestamp = 0;
+    let minFrameInterval = lowPowerDevice ? 50 : 32;
 
     const particleCount = () => {
-      if (window.innerWidth < 600) return 24;
-      if (window.innerWidth < 1000) return lowPowerDevice ? 30 : 40;
-      return lowPowerDevice ? 40 : 58;
+      if (window.innerWidth < 600) return 16;
+      if (window.innerWidth < 1000) return lowPowerDevice ? 20 : 26;
+      return lowPowerDevice ? 26 : 34;
     };
 
     const makeParticle = () => ({
@@ -86,7 +90,7 @@
     const resizeCanvas = () => {
       width = window.innerWidth;
       height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, lowPowerDevice ? 1 : 1.3);
+      dpr = Math.min(window.devicePixelRatio || 1, lowPowerDevice ? 1 : 1.1);
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       canvas.style.width = `${width}px`;
@@ -119,7 +123,7 @@
       gradient.addColorStop(1, 'rgba(0,0,0,0)');
 
       ctx.beginPath();
-      for (let x = -40; x <= width + 40; x += 18) {
+      for (let x = -40; x <= width + 40; x += 28) {
         const pointerLift = pointer.active
           ? Math.max(0, 1 - Math.abs(x - pointer.x) / Math.max(240, width * 0.3)) * (pointer.y - height / 2) * 0.08
           : 0;
@@ -163,12 +167,16 @@
 
     const render = (timestamp) => {
       if (!running) return;
+      frameId = requestAnimationFrame(render);
+      if (timestamp - lastDrawTimestamp < minFrameInterval) return;
+      lastDrawTimestamp = timestamp;
       if (lastFrameTimestamp) {
         const frameTime = timestamp - lastFrameTimestamp;
-        slowFrameCount = frameTime > 23 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 2);
-        if (slowFrameCount > 40 && particles.length > 28) {
-          particles.length = Math.max(28, Math.floor(particles.length * 0.78));
-          connectionStep = 2;
+        slowFrameCount = frameTime > minFrameInterval * 1.45 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 2);
+        if (slowFrameCount > 18) {
+          if (particles.length > 18) particles.length = Math.max(18, Math.floor(particles.length * 0.78));
+          connectionStep = 3;
+          minFrameInterval = Math.min(50, minFrameInterval + 8);
           slowFrameCount = 0;
         }
       }
@@ -184,9 +192,9 @@
       lastScroll = currentScroll;
 
       const palette = getPalette();
-      drawPointerGlow(palette);
+      if (!lowPowerDevice && pointer.active) drawPointerGlow(palette);
       ctx.globalCompositeOperation = 'lighter';
-      const ribbonCount = lowPowerDevice ? 2 : 3;
+      const ribbonCount = lowPowerDevice ? 1 : 2;
       for (let lane = 0; lane < ribbonCount; lane += 1) drawRibbon(lane, palette);
       ctx.globalCompositeOperation = 'source-over';
 
@@ -196,9 +204,10 @@
       particles.forEach((particle) => {
         const dx = pointer.x - particle.x;
         const dy = pointer.y - particle.y;
-        const distance = Math.hypot(dx, dy) || 1;
+        const distanceSquared = dx * dx + dy * dy;
 
-        if (pointer.active && distance < pointerRadius) {
+        if (pointer.active && distanceSquared < pointerRadius * pointerRadius) {
+          const distance = Math.sqrt(distanceSquared) || 1;
           const force = (1 - distance / pointerRadius) * 0.018 * particle.depth;
           particle.vx += (-dy / distance) * force + (dx / distance) * force * 0.22;
           particle.vy += (dx / distance) * force + (dy / distance) * force * 0.22;
@@ -215,22 +224,22 @@
         if (particle.y > height + 20) particle.y = -20;
       });
 
-      ctx.lineWidth = 0.7;
+      ctx.lineWidth = 0.65;
+      ctx.strokeStyle = `rgba(${palette.primary},.11)`;
+      ctx.beginPath();
       for (let i = 0; i < particles.length; i += 1) {
         const a = particles[i];
         for (let j = i + 1; j < particles.length; j += connectionStep) {
           const b = particles[j];
-          const distance = Math.hypot(a.x - b.x, a.y - b.y);
-          if (distance < maxDistance) {
-            const opacity = (1 - distance / maxDistance) * 0.27 * Math.min(a.depth, b.depth);
-            ctx.beginPath();
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          if (dx * dx + dy * dy < maxDistance * maxDistance) {
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(${i % 3 === 0 ? palette.secondary : palette.primary},${opacity})`;
-            ctx.stroke();
           }
         }
       }
+      ctx.stroke();
 
       ctx.globalCompositeOperation = 'lighter';
       particles.forEach((particle) => {
@@ -247,12 +256,9 @@
         ctx.fillStyle = `rgba(${color},${pulse})`;
         ctx.fill();
       });
-      drawOrbit(Math.min(width, height) * 0.44, 0.18, 0.000035, 0.5, palette.primary);
-      drawOrbit(Math.min(width, height) * 0.31, 0.13, -0.00005, 2.2, palette.secondary);
-      if (!lowPowerDevice) drawOrbit(Math.min(width, height) * 0.2, 0.1, 0.000065, 4.1, palette.tertiary);
+      drawOrbit(Math.min(width, height) * 0.4, 0.15, 0.000035, 0.5, palette.primary);
+      if (!lowPowerDevice) drawOrbit(Math.min(width, height) * 0.29, 0.12, -0.00005, 2.2, palette.secondary);
       ctx.globalCompositeOperation = 'source-over';
-
-      frameId = requestAnimationFrame(render);
     };
 
     window.addEventListener('resize', resizeCanvas, { passive: true });
@@ -293,8 +299,8 @@
     scrollTicking = false;
     const scrollTop = window.scrollY;
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
-    document.documentElement.style.setProperty('--scroll-progress', `${progress}%`);
+    const progress = maxScroll > 0 ? scrollTop / maxScroll : 0;
+    document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(4));
     navbar?.classList.toggle('scrolled', scrollTop > 28);
 
     let activeSection = sections[0];
@@ -333,7 +339,7 @@
 
   /* ---------- Type treatment ---------- */
   const typedText = document.getElementById('typed-text');
-  const phrases = ['Webデザイナー', 'AIエンジニア'];
+  const phrases = ['Webデザイナー', 'AIエンジニア', 'SNS運用・マーケティング'];
 
   if (typedText) {
     if (reduceMotion) {
@@ -394,14 +400,28 @@
 
   if (!reduceMotion && finePointer) {
     document.querySelectorAll('.skill-card, .strength-card, .work-card').forEach((card) => {
+      let rect;
+      let tiltFrame = 0;
+      let pointerX = 0;
+      let pointerY = 0;
+      card.addEventListener('pointerenter', () => { rect = card.getBoundingClientRect(); }, { passive: true });
       card.addEventListener('pointermove', (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 3.5;
-        const y = ((event.clientY - rect.top) / rect.height - 0.5) * -3.5;
-        card.style.setProperty('--tilt-x', `${x.toFixed(2)}deg`);
-        card.style.setProperty('--tilt-y', `${y.toFixed(2)}deg`);
-      });
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        if (tiltFrame) return;
+        tiltFrame = requestAnimationFrame(() => {
+          tiltFrame = 0;
+          if (!rect) return;
+          const x = ((pointerX - rect.left) / rect.width - 0.5) * 3.5;
+          const y = ((pointerY - rect.top) / rect.height - 0.5) * -3.5;
+          card.style.setProperty('--tilt-x', `${x.toFixed(2)}deg`);
+          card.style.setProperty('--tilt-y', `${y.toFixed(2)}deg`);
+        });
+      }, { passive: true });
       card.addEventListener('pointerleave', () => {
+        rect = null;
+        if (tiltFrame) cancelAnimationFrame(tiltFrame);
+        tiltFrame = 0;
         card.style.setProperty('--tilt-x', '0deg');
         card.style.setProperty('--tilt-y', '0deg');
       });
