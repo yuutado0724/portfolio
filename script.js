@@ -77,10 +77,10 @@
 
     const getPalette = () => {
       const progress = window.scrollY / maxPageScroll;
-      if (progress < 0.22) return { primary: '201,255,56', secondary: '97,232,210', tertiary: '128,104,255' };
-      if (progress < 0.48) return { primary: '97,232,210', secondary: '128,104,255', tertiary: '201,255,56' };
-      if (progress < 0.76) return { primary: '128,104,255', secondary: '97,232,210', tertiary: '201,255,56' };
-      return { primary: '201,255,56', secondary: '97,232,210', tertiary: '128,104,255' };
+      if (progress < 0.22) return { primary: '0,155,157', secondary: '97,232,210', tertiary: '128,104,255' };
+      if (progress < 0.48) return { primary: '97,232,210', secondary: '128,104,255', tertiary: '0,155,157' };
+      if (progress < 0.76) return { primary: '128,104,255', secondary: '97,232,210', tertiary: '0,155,157' };
+      return { primary: '0,155,157', secondary: '97,232,210', tertiary: '128,104,255' };
     };
 
     const resizeCanvas = () => {
@@ -577,7 +577,7 @@
 
       if (!response.ok) throw new Error('送信に失敗しました');
       notice.textContent = 'メッセージを送信しました。ありがとうございます。';
-      notice.style.color = '#c9ff38';
+      notice.style.color = '#009b9d';
       form.reset();
     } catch (error) {
       notice.textContent = '送信できませんでした。時間をおいて再度お試しください。';
