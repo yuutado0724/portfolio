@@ -333,7 +333,7 @@
 
   /* ---------- Type treatment ---------- */
   const typedText = document.getElementById('typed-text');
-  const phrases = ['Webデザイナー', 'AIエンジニア', 'SNS運用・マーケティング'];
+  const phrases = ['AIエンジニア', 'SNS運用・マーケティング'];
 
   if (typedText) {
     if (reduceMotion) {
