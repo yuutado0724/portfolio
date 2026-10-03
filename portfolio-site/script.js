@@ -331,38 +331,6 @@
   hamburger?.addEventListener('click', () => setMenu(!navList?.classList.contains('open')));
   navAnchors.forEach((anchor) => anchor.addEventListener('click', () => setMenu(false)));
 
-  /* ---------- Type treatment ---------- */
-  const typedText = document.getElementById('typed-text');
-  const phrases = ['AIエンジニア', 'SNS運用・マーケティング'];
-
-  if (typedText) {
-    if (reduceMotion) {
-      typedText.textContent = phrases.join(' / ');
-    } else {
-      let phraseIndex = 0;
-      let charIndex = 0;
-      let deleting = false;
-
-      const type = () => {
-        const phrase = Array.from(phrases[phraseIndex]);
-        charIndex += deleting ? -1 : 1;
-        typedText.textContent = phrase.slice(0, Math.max(0, charIndex)).join('');
-
-        let delay = deleting ? 55 : 95;
-        if (!deleting && charIndex >= phrase.length) {
-          deleting = true;
-          delay = 1600;
-        } else if (deleting && charIndex <= 0) {
-          deleting = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          delay = 380;
-        }
-        window.setTimeout(type, delay);
-      };
-      type();
-    }
-  }
-
   /* ---------- Reveal and skill animations ---------- */
   const revealElements = document.querySelectorAll('.fade-in');
   if ('IntersectionObserver' in window && !reduceMotion) {

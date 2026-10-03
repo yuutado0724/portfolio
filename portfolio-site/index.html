@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070909">
-  <meta name="description" content="原 裕太のポートフォリオ。Webデザイン、AIを活用したアプリ・ツール開発の制作実績を紹介しています。">
+  <meta name="description" content="原 裕太のポートフォリオ。Web制作、SNS運用、AIを活用したアプリ・ツール制作の実績を紹介しています。">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23060807'/%3E%3Cpath d='M8 8h48v48H8z' fill='none' stroke='%23c9ff38' stroke-width='3'/%3E%3Ctext x='32' y='38' text-anchor='middle' font-family='monospace' font-weight='700' font-size='18' fill='%23c9ff38'%3EYH%3C/text%3E%3C/svg%3E">
   <title>Portfolio | 原 裕太</title>
-  <link rel="stylesheet" href="style.css?v=motion-20260721">
+  <link rel="stylesheet" href="style.css?v=hero-20261003">
 </head>
 <body>
 
@@ -43,27 +43,20 @@
 
   <main id="main-content" tabindex="-1">
   <!-- ヒーローセクション -->
-  <section id="hero" aria-labelledby="hero-name">
-    <div class="hero-orbit" aria-hidden="true">
-      <span class="orbit orbit-one"></span>
-      <span class="orbit orbit-two"></span>
-      <span class="orbit-dot"></span>
-    </div>
-    <div class="hero-side-label hero-side-left" aria-hidden="true">WEB / AI / CREATIVE</div>
-    <div class="hero-side-label hero-side-right" aria-hidden="true">YUTA HARA / 2026</div>
+  <section id="hero" class="home-hero" aria-labelledby="hero-heading">
     <div class="hero-content">
-      <p class="hero-kicker"><span>PORTFOLIO</span><span>2026</span></p>
-      <p class="hero-greeting">はじめまして、私は</p>
-      <h1 class="hero-name" id="hero-name"><span>原</span><span>裕太</span></h1>
-      <p class="hero-title"><span id="typed-text"></span><span class="cursor">|</span></p>
+      <p class="home-hero-eyebrow"><span class="home-hero-eyebrow-line" aria-hidden="true"></span>原 裕太 <span aria-hidden="true">/</span> AIエンジニア</p>
+      <h1 class="home-hero-heading" id="hero-heading">Web制作、SNS運用、<br><span>AI活用ツール制作。</span></h1>
+      <p class="home-hero-lead">伝えたいことを整理し、サイト・コンテンツ・ツールとして形にします。</p>
       <div class="hero-buttons">
         <a href="#works" class="btn btn-primary">制作物を見る</a>
-        <a href="#contact" class="btn btn-outline">連絡する</a>
+        <a href="#contact" class="btn btn-outline">相談する</a>
       </div>
-    </div>
-    <div class="hero-scroll">
-      <span>スクロール</span>
-      <div class="scroll-line"></div>
+      <nav class="home-hero-services" aria-label="対応分野">
+        <a href="#web-work" class="home-hero-service"><span class="home-hero-service-number">01 / WEB</span><strong>Webサイト・デザイン</strong><span class="home-hero-service-arrow" aria-hidden="true">→</span></a>
+        <a href="sns-management.html" class="home-hero-service"><span class="home-hero-service-number">02 / SNS</span><strong>投稿制作・運用サポート</strong><span class="home-hero-service-arrow" aria-hidden="true">→</span></a>
+        <a href="#tool-work" class="home-hero-service"><span class="home-hero-service-number">03 / AI</span><strong>アプリ・ツール制作</strong><span class="home-hero-service-arrow" aria-hidden="true">→</span></a>
+      </nav>
     </div>
   </section>
 
@@ -78,20 +71,20 @@
           </div>
         </div>
         <div class="about-text fade-in">
-          <p>現在は運送業に従事しながら、AIを活用したアプリ・ツール開発の学習に取り組んでいます。</p>
-          <p>日々スキルを磨きながら、実務レベルでの品質向上を目指して活動しています。</p>
+          <p>現在は運送業に従事しながら、AIエンジニアとしてアプリ・ツールを開発しています。</p>
+          <p>WebサイトやSNSコンテンツも制作し、使いやすさと伝わりやすさを大切にしています。</p>
           <div class="about-meta">
             <div class="meta-item">
               <span class="meta-label">本業</span>
               <span class="meta-value">運送業</span>
             </div>
             <div class="meta-item">
-              <span class="meta-label">学習中</span>
-              <span class="meta-value">AI開発</span>
+              <span class="meta-label">活動</span>
+              <span class="meta-value">AIエンジニア</span>
             </div>
             <div class="meta-item">
-              <span class="meta-label">目標</span>
-              <span class="meta-value">実務レベルの品質向上</span>
+              <span class="meta-label">制作方針</span>
+              <span class="meta-value">使いやすさと品質</span>
             </div>
           </div>
         </div>
@@ -232,7 +225,7 @@
         </div>
       </div>
 
-      <div class="works-category fade-in">
+      <div class="works-category fade-in" id="web-work">
         <h3 class="works-category-title">Webデザイン</h3>
         <div class="works-grid">
           <div class="work-card fade-in">
@@ -268,7 +261,7 @@
         </div>
       </div>
 
-      <div class="works-category fade-in">
+      <div class="works-category fade-in" id="tool-work">
         <h3 class="works-category-title">アプリ・ツール開発</h3>
         <div class="works-grid">
           <div class="work-card fade-in">
@@ -408,6 +401,6 @@
     <div class="lightbox-counter" id="lightbox-counter"></div>
   </div>
 
-  <script src="script.js?v=motion-20260721"></script>
+  <script src="script.js?v=hero-20261003"></script>
 </body>
 </html>
